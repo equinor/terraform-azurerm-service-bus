@@ -11,10 +11,12 @@ resource "azurerm_resource_group" "this" {
   location = var.location
 }
 
-module "foobar" {
-  # source = "github.com/equinor/terraform-azurerm-foobar?ref=v0.0.0"
+module "servicebus" {
+  # source = "github.com/equinor/terraform-azurerm-service-bus?ref=v0.0.0"
   source = "../.."
 
+  namespace_name      = "servicebus-namespace-${random_id.this.hex}"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
+  sku                 = "Basic"
 }

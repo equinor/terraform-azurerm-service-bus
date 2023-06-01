@@ -1,3 +1,8 @@
+variable "namespace_name" {
+  description = "The name of the Servicebus Namespace"
+  type        = string
+}
+
 variable "resource_group_name" {
   description = "The name of the resource group to create the resources in."
   type        = string
@@ -5,6 +10,11 @@ variable "resource_group_name" {
 
 variable "location" {
   description = "The location to create the resources in."
+  type        = string
+}
+
+variable "sku" {
+  description = "Defines which SKU to use. Options are Basic, Standard or Premium."
   type        = string
 }
 

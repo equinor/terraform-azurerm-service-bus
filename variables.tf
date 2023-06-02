@@ -1,4 +1,4 @@
-variable "servicebus_namespace_name" {
+variable "namespace_name" {
   description = "The name of the Servicebus Namespace"
   type        = string
 }

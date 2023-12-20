@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.1.0...v1.1.1) (2023-12-20)
+
+
+### Bug Fixes
+
+* remove diagnostic setting retention policies ([#30](https://github.com/equinor/terraform-azurerm-service-bus/issues/30)) ([393f80c](https://github.com/equinor/terraform-azurerm-service-bus/commit/393f80c1fc81acd15ea07bdf21299270b9f69135))
+
 ## [1.1.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.0.1...v1.1.0) (2023-07-26)
 
 

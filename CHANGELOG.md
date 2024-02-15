@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.1.1...v1.1.2) (2024-02-15)
+
+
+### Bug Fixes
+
+* tags not assigned ([#33](https://github.com/equinor/terraform-azurerm-service-bus/issues/33)) ([b242f21](https://github.com/equinor/terraform-azurerm-service-bus/commit/b242f21389d4f78d61023e07c821caf4b55d34db))
+
 ## [1.1.1](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.1.0...v1.1.1) (2023-12-20)
 
 

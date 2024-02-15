@@ -3,6 +3,8 @@ resource "azurerm_servicebus_namespace" "this" {
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = var.sku
+
+  tags = var.tags
 }
 
 resource "azurerm_monitor_diagnostic_setting" "this" {

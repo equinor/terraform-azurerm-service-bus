@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.1.2...v1.2.0) (2024-02-22)
+
+
+### Features
+
+* variable for diagnostic settng metric ([#38](https://github.com/equinor/terraform-azurerm-service-bus/issues/38)) ([a00ccd8](https://github.com/equinor/terraform-azurerm-service-bus/commit/a00ccd821b6c484f7fe044cb91d57aa090155331))
+
 ## [1.1.2](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.1.1...v1.1.2) (2024-02-15)
 
 

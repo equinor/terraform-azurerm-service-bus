@@ -20,7 +20,7 @@ variable "sku" {
 }
 
 variable "system_assigned_identity_enabled" {
-  description = "Should the system-assigned identity be enabled for this Web App?"
+  description = "Should the system-assigned identity be enabled for this Service Bus namespace?"
   type        = bool
   default     = false
 }

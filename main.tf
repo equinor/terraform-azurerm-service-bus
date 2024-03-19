@@ -14,6 +14,15 @@ resource "azurerm_servicebus_namespace" "this" {
   resource_group_name = var.resource_group_name
   sku                 = var.sku
 
+  dynamic "identity" {
+    for_each = local.identity_type != "" ? [1] : []
+
+    content {
+      type         = local.identity_type
+      identity_ids = var.identity_ids
+    }
+  }
+
   tags = var.tags
 }
 

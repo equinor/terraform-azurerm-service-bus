@@ -30,6 +30,7 @@ variable "identity_ids" {
   type        = list(string)
   default     = []
 }
+
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics workspace to send diagnostics to."
   type        = string

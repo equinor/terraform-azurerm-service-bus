@@ -19,6 +19,18 @@ variable "sku" {
   default     = "Basic"
 }
 
+variable "system_assigned_identity_enabled" {
+  description = "Should the system-assigned identity be enabled for this Web App?"
+  type        = bool
+  default     = false
+}
+
+variable "identity_ids" {
+  description = "A list of IDs of managed identities to be assigned to this Web App."
+  type        = list(string)
+  default     = []
+}
+
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics workspace to send diagnostics to."
   type        = string

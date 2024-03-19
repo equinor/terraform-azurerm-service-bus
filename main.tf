@@ -1,11 +1,6 @@
 locals {
   diagnostic_setting_metric_categories = ["AllMetrics"]
 
-  # If system_assigned_identity_enabled is true, value is "SystemAssigned".
-  # If identity_ids is non-empty, value is "UserAssigned".
-  # If system_assigned_identity_enabled is true and identity_ids is non-empty, value is "SystemAssigned, UserAssigned".
-  identity_type = join(", ", compact([var.system_assigned_identity_enabled ? "SystemAssigned" : "", length(var.identity_ids) > 0 ? "UserAssigned" : ""]))
-
 }
 
 resource "azurerm_servicebus_namespace" "this" {
@@ -13,15 +8,6 @@ resource "azurerm_servicebus_namespace" "this" {
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = var.sku
-
-  dynamic "identity" {
-    for_each = local.identity_type != "" ? [1] : []
-
-    content {
-      type         = local.identity_type
-      identity_ids = var.identity_ids
-    }
-  }
 
   tags = var.tags
 }

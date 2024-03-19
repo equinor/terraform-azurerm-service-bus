@@ -20,13 +20,13 @@ variable "sku" {
 }
 
 variable "system_assigned_identity_enabled" {
-  description = "Should the system-assigned identity be enabled for this Web App?"
+  description = "Should the system-assigned identity be enabled for this Service Bus namespace?"
   type        = bool
   default     = false
 }
 
 variable "identity_ids" {
-  description = "A list of IDs of managed identities to be assigned to this Web App."
+  description = "A list of IDs of managed identities to be assigned to this Service Bus namespace."
   type        = list(string)
   default     = []
 }

@@ -26,7 +26,7 @@ variable "system_assigned_identity_enabled" {
 }
 
 variable "identity_ids" {
-  description = "A list of IDs of managed identities to be assigned to this Web App."
+  description = "A list of IDs of managed identities to be assigned to this Service Bus namespace."
   type        = list(string)
   default     = []
 }

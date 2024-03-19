@@ -1,6 +1,5 @@
 locals {
   diagnostic_setting_metric_categories = ["AllMetrics"]
-
 }
 
 resource "azurerm_servicebus_namespace" "this" {

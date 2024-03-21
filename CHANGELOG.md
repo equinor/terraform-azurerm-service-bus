@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.2.0...v1.3.0) (2024-03-21)
+
+
+### Features
+
+* add managed identity ([#43](https://github.com/equinor/terraform-azurerm-service-bus/issues/43)) ([17c04c4](https://github.com/equinor/terraform-azurerm-service-bus/commit/17c04c4fa03cab998bee1b684544ac3202a0464a))
+* add outputs ([#42](https://github.com/equinor/terraform-azurerm-service-bus/issues/42)) ([cd6e60d](https://github.com/equinor/terraform-azurerm-service-bus/commit/cd6e60d3fd55629632cd64f3ebfa9e6481c02339))
+
 ## [1.2.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.1.2...v1.2.0) (2024-02-22)
 
 

@@ -1,6 +1,6 @@
 # Azure Service Bus Terraform module
 
-[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-/badge)](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-/badge)
+[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-service-bus/badge)](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-service-bus/badge)
 [![Equinor Terraform Baseline](https://img.shields.io/badge/Equinor%20Terraform%20Baseline-1.0.0-blueviolet)](https://github.com/equinor/terraform-baseline)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 

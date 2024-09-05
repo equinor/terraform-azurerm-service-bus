@@ -31,6 +31,41 @@ variable "identity_ids" {
   default     = []
 }
 
+# network (Private access is only available on Premium namespaces.)
+variable "network_default_action" {
+  description = "value"
+  type        = string
+  default     = "Allow"
+}
+
+variable "public_network_access_enabled" {
+  description = "value"
+  type        = bool
+  default     = true
+}
+
+variable "trusted_services_allowed" {
+  description = "value"
+  type        = bool
+  default     = true
+}
+
+variable "ip_rules" {
+  description = "value"
+  type        = list(string)
+  default     = []
+}
+
+variable "network_rules" {
+  description = "value"
+  type = list(object({
+    subnet_id                            = string
+    ignore_missing_vnet_service_endpoint = bool
+  }))
+  default = []
+}
+
+
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics workspace to send diagnostics to."
   type        = string

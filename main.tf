@@ -23,7 +23,66 @@ resource "azurerm_servicebus_namespace" "this" {
     }
   }
 
+  # Network Rule Set
+  # Conditionally define the entire network_rule_set block based on SKU
+  dynamic "network_rule_set" {
+    for_each = var.sku == "Premium" ? [1] : []
+    content {
+      default_action                = "Allow"
+      public_network_access_enabled = true
+      trusted_services_allowed      = true
+      ip_rules                      = []
+
+      # Conditionally define multiple network_rules inside the network_rule_set
+      dynamic "network_rules" {
+        for_each = var.network_rules
+        content {
+          subnet_id                            = "/subscriptions/115a0693-7b56-4f35-8b25-7898d4b60cef/resourceGroups/rg-plt-network-hub/providers/Microsoft.Network/virtualNetworks/vnet-network-hub/subnets/Common"
+          ignore_missing_vnet_service_endpoint = false
+        }
+      }
+    }
+  }
+
   tags = var.tags
+}
+
+# RootManageSharedAccessKey
+resource "azurerm_servicebus_namespace_authorization_rule" "root" {
+  name         = "RootManageSharedAccessKey"
+  namespace_id = azurerm_servicebus_namespace.this.id
+  listen       = true
+  send         = true
+  manage       = true
+
+}
+
+## Queue
+resource "azurerm_servicebus_queue" "this" {
+  name         = "sbq-${var.namespace_name}"
+  namespace_id = azurerm_servicebus_namespace.this.id
+
+  enable_partitioning = true
+}
+
+# Receiver Authorization Rule
+resource "azurerm_servicebus_queue_authorization_rule" "listen" {
+  name     = "sbq-${var.namespace_name}-listen"
+  queue_id = azurerm_servicebus_queue.this.id
+
+  listen = true
+  send   = false
+  manage = false
+}
+
+# Sender Authorization Rule
+resource "azurerm_servicebus_queue_authorization_rule" "send" {
+  name     = "sbq-${var.namespace_name}-send"
+  queue_id = azurerm_servicebus_queue.this.id
+
+  listen = false
+  send   = true
+  manage = false
 }
 
 resource "azurerm_monitor_diagnostic_setting" "this" {

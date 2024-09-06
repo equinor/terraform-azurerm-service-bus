@@ -33,25 +33,25 @@ variable "identity_ids" {
 
 # network (Private access is only available on Premium namespaces.)
 variable "network_default_action" {
-  description = "value"
+  description = "Specifies the default action for the Network Rule Set. Possible values are Allow and Deny."
   type        = string
   default     = "Allow"
 }
 
 variable "public_network_access_enabled" {
-  description = "value"
+  description = "Whether to allow traffic over public network. Possible values are true and false."
   type        = bool
   default     = true
 }
 
 variable "trusted_services_allowed" {
-  description = "value"
+  description = "Azure Services that are known and trusted for this resource type are allowed to bypass firewall configuration"
   type        = bool
   default     = true
 }
 
 variable "ip_rules" {
-  description = "value"
+  description = "One or more IP Addresses, or CIDR Blocks which should be able to access the ServiceBus Namespace."
   type        = list(string)
   default     = []
 }

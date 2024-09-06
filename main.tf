@@ -28,17 +28,17 @@ resource "azurerm_servicebus_namespace" "this" {
   dynamic "network_rule_set" {
     for_each = var.sku == "Premium" ? [1] : []
     content {
-      default_action                = "Allow"
-      public_network_access_enabled = true
-      trusted_services_allowed      = true
-      ip_rules                      = []
+      default_action                = var.network_default_action
+      public_network_access_enabled = var.public_network_access_enabled
+      trusted_services_allowed      = var.trusted_services_allowed
+      ip_rules                      = var.ip_rules
 
       # Conditionally define multiple network_rules inside the network_rule_set
       dynamic "network_rules" {
         for_each = var.network_rules
         content {
-          subnet_id                            = "/subscriptions/115a0693-7b56-4f35-8b25-7898d4b60cef/resourceGroups/rg-plt-network-hub/providers/Microsoft.Network/virtualNetworks/vnet-network-hub/subnets/Common"
-          ignore_missing_vnet_service_endpoint = false
+          subnet_id                            = each.value.subnet_id
+          ignore_missing_vnet_service_endpoint = each.value.ignore_missing_vnet_service_endpoint
         }
       }
     }

@@ -47,22 +47,24 @@ resource "azurerm_servicebus_namespace" "this" {
   tags = var.tags
 }
 
-# RootManageSharedAccessKey
+# Servicebus Namespace Authorization Rule
 resource "azurerm_servicebus_namespace_authorization_rule" "root" {
-  name         = "RootManageSharedAccessKey"
-  namespace_id = azurerm_servicebus_namespace.this.id
-  listen       = true
-  send         = true
-  manage       = true
+  for_each = var.namespace_authorization_rule
 
+  name         = each.value.name
+  namespace_id = azurerm_servicebus_namespace.this.id
+  listen       = each.value.listen
+  send         = each.value.send
+  manage       = each.value.manage
 }
 
-## Queue
+# Servicebus Queue
 resource "azurerm_servicebus_queue" "this" {
-  name         = "sbq-${var.namespace_name}"
-  namespace_id = azurerm_servicebus_namespace.this.id
+  for_each = var.servicebus_queue
 
-  enable_partitioning = true
+  name                 = each.value.name
+  namespace_id         = azurerm_servicebus_namespace.this.id
+  partitioning_enabled = each.value.partitioning_enabled
 }
 
 # Receiver Authorization Rule

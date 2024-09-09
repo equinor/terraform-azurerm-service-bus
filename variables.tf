@@ -65,6 +65,33 @@ variable "network_rules" {
   default = []
 }
 
+# Servicebus Namespace Authorization Rule
+variable "namespace_authorization_rule" {
+  description = "Manages a ServiceBus Namespace authorization Rule within a ServiceBus."
+  type = map(object({
+    name   = string
+    listen = bool
+    send   = bool
+    manage = bool
+  }))
+
+  default = {}
+}
+
+# Servicebus Queue
+variable "servicebus_queue" {
+  description = "Manages a ServiceBus Queue."
+  type = map(object({
+    name                 = string
+    partitioning_enabled = bool
+  }))
+
+  default = {}
+}
+
+
+
+
 
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics workspace to send diagnostics to."

@@ -48,7 +48,7 @@ resource "azurerm_servicebus_namespace" "this" {
 }
 
 # Servicebus Namespace Authorization Rule
-resource "azurerm_servicebus_namespace_authorization_rule" "root" {
+resource "azurerm_servicebus_namespace_authorization_rule" "this" {
   for_each = var.namespace_authorization_rule
 
   name         = each.value.name
@@ -60,31 +60,22 @@ resource "azurerm_servicebus_namespace_authorization_rule" "root" {
 
 # Servicebus Queue
 resource "azurerm_servicebus_queue" "this" {
-  for_each = var.servicebus_queue
+  for_each = var.queue
 
   name                 = each.value.name
   namespace_id         = azurerm_servicebus_namespace.this.id
   partitioning_enabled = each.value.partitioning_enabled
 }
 
-# Receiver Authorization Rule
-resource "azurerm_servicebus_queue_authorization_rule" "listen" {
-  name     = "sbq-${var.namespace_name}-listen"
-  queue_id = azurerm_servicebus_queue.this.id
+# Queue Authorization Rule
+resource "azurerm_servicebus_queue_authorization_rule" "this" {
+  for_each = var.queue_authorization_rule
 
-  listen = true
-  send   = false
-  manage = false
-}
-
-# Sender Authorization Rule
-resource "azurerm_servicebus_queue_authorization_rule" "send" {
-  name     = "sbq-${var.namespace_name}-send"
-  queue_id = azurerm_servicebus_queue.this.id
-
-  listen = false
-  send   = true
-  manage = false
+  name     = each.value.name
+  queue_id = "${azurerm_servicebus_namespace.this.id}/queues${each.value.queue_name}"
+  listen   = each.value.listen
+  send     = each.value.send
+  manage   = each.value.manage
 }
 
 resource "azurerm_monitor_diagnostic_setting" "this" {

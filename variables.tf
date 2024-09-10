@@ -79,7 +79,7 @@ variable "namespace_authorization_rule" {
 }
 
 # Servicebus Queue
-variable "servicebus_queue" {
+variable "queue" {
   description = "Manages a ServiceBus Queue."
   type = map(object({
     name                 = string
@@ -89,8 +89,19 @@ variable "servicebus_queue" {
   default = {}
 }
 
+# Queue Authorization Rule
+variable "queue_authorization_rule" {
+  description = "value"
+  type = map(object({
+    name       = string
+    queue_name = string
+    listen     = bool
+    send       = bool
+    manage     = bool
+  }))
 
-
+  default = {}
+}
 
 
 variable "log_analytics_workspace_id" {

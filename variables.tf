@@ -25,6 +25,12 @@ variable "capacity" {
   default     = 0
 }
 
+variable "premium_messaging_partitions" {
+  description = "Only valid when sku is Premium and the minimum number is 1. Possible values include 0, 1, 2, and 4. Defaults to 0"
+  type        = number
+  default     = 0
+}
+
 variable "system_assigned_identity_enabled" {
   description = "Should the system-assigned identity be enabled for this Service Bus namespace?"
   type        = bool

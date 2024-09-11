@@ -9,11 +9,13 @@ locals {
 }
 
 resource "azurerm_servicebus_namespace" "this" {
-  name                = var.namespace_name
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  sku                 = var.sku
-  capacity            = var.capacity
+  name                          = var.namespace_name
+  location                      = var.location
+  resource_group_name           = var.resource_group_name
+  sku                           = var.sku
+  capacity                      = var.capacity
+  premium_messaging_partitions  = var.premium_messaging_partitions
+  public_network_access_enabled = var.public_network_access_enabled
 
   dynamic "identity" {
     for_each = local.identity_type != "" ? [1] : []
@@ -24,11 +26,9 @@ resource "azurerm_servicebus_namespace" "this" {
     }
   }
 
-  public_network_access_enabled = var.public_network_access_enabled
-
   # Network Rule Set
-  # Conditionally define the entire network_rule_set block based on SKU
   dynamic "network_rule_set" {
+    # Conditionally define the entire network_rule_set block based on SKU
     for_each = var.sku == "Premium" ? [1] : []
     content {
       default_action                = var.network_default_action
@@ -75,7 +75,7 @@ resource "azurerm_servicebus_queue_authorization_rule" "this" {
   for_each = var.queue_authorization_rule
 
   name     = each.value.name
-  queue_id = "${azurerm_servicebus_namespace.this.id}/queues${each.value.queue_name}"
+  queue_id = "${azurerm_servicebus_namespace.this.id}/queues/${each.value.queue_name}"
   listen   = each.value.listen
   send     = each.value.send
   manage   = each.value.manage

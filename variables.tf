@@ -100,14 +100,14 @@ variable "queue" {
   description = "Manages a ServiceBus Queue."
   type = map(object({
     name                 = string
-    partitioning_enabled = bool
+    partitioning_enabled = bool # Defaults to false
   }))
   default = {}
 }
 
 # Queue Authorization Rule
 variable "queue_authorization_rule" {
-  description = "value"
+  description = "Manages an Authorization Rule for a ServiceBus Queue."
   type = map(object({
     name       = string
     queue_name = string

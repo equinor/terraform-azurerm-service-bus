@@ -57,7 +57,7 @@ variable "ip_rules" {
 }
 
 variable "network_rules" {
-  description = "value"
+  description = "The Subnet ID which should be able to access this ServiceBus Namespace.Should the ServiceBus Namespace Network Rule Set ignore missing Virtual Network Service Endpoint option in the Subnet? Defaults to false."
   type = list(object({
     subnet_id                            = string
     ignore_missing_vnet_service_endpoint = bool

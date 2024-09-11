@@ -19,6 +19,12 @@ variable "sku" {
   default     = "Basic"
 }
 
+variable "capacity" {
+  description = "Specifies the capacity. Premium allows 1, 2, 4, 8 or 16. Basic or Standard allows 0 only."
+  type        = number
+  default     = 0
+}
+
 variable "system_assigned_identity_enabled" {
   description = "Should the system-assigned identity be enabled for this Service Bus namespace?"
   type        = bool

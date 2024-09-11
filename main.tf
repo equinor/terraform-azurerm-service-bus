@@ -13,6 +13,7 @@ resource "azurerm_servicebus_namespace" "this" {
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = var.sku
+  capacity            = var.capacity
 
   dynamic "identity" {
     for_each = local.identity_type != "" ? [1] : []

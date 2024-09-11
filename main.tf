@@ -72,7 +72,8 @@ resource "azurerm_servicebus_queue" "this" {
 
 # Queue Authorization Rule
 resource "azurerm_servicebus_queue_authorization_rule" "this" {
-  depends_on = azurerm_servicebus_queue.this
+  # depends_on = [azurerm_servicebus_queue.this]
+  depends_on = ["${azurerm_servicebus_queue.this}[${each.value.queue_name}]"]
   for_each   = var.queue_authorization_rule
 
   name     = each.value.name

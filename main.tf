@@ -23,13 +23,15 @@ resource "azurerm_servicebus_namespace" "this" {
     }
   }
 
+  public_network_access_enabled = var.public_network_access_enabled
+
   # Network Rule Set
   # Conditionally define the entire network_rule_set block based on SKU
   dynamic "network_rule_set" {
     for_each = var.sku == "Premium" ? [1] : []
     content {
       default_action                = var.network_default_action
-      public_network_access_enabled = var.public_network_access_enabled
+      public_network_access_enabled = var.network_public_network_access_enabled
       trusted_services_allowed      = var.trusted_services_allowed
       ip_rules                      = var.ip_rules
 
@@ -37,8 +39,8 @@ resource "azurerm_servicebus_namespace" "this" {
       dynamic "network_rules" {
         for_each = var.network_rules
         content {
-          subnet_id                            = each.value.subnet_id
-          ignore_missing_vnet_service_endpoint = each.value.ignore_missing_vnet_service_endpoint
+          subnet_id                            = network_rules.value["subnet_id"]
+          ignore_missing_vnet_service_endpoint = network_rules.value["ignore_missing_vnet_service_endpoint"]
         }
       }
     }

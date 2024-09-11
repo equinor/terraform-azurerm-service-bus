@@ -31,6 +31,12 @@ variable "identity_ids" {
   default     = []
 }
 
+variable "public_network_access_enabled" {
+  description = "Is public network access enabled for the Service Bus Namespace?"
+  type        = bool
+  default     = true
+}
+
 # network (Private access is only available on Premium namespaces.)
 variable "network_default_action" {
   description = "Specifies the default action for the Network Rule Set. Possible values are Allow and Deny."
@@ -38,7 +44,7 @@ variable "network_default_action" {
   default     = "Allow"
 }
 
-variable "public_network_access_enabled" {
+variable "network_public_network_access_enabled" {
   description = "Whether to allow traffic over public network. Possible values are true and false."
   type        = bool
   default     = true
@@ -57,10 +63,10 @@ variable "ip_rules" {
 }
 
 variable "network_rules" {
-  description = "The Subnet ID which should be able to access this ServiceBus Namespace.Should the ServiceBus Namespace Network Rule Set ignore missing Virtual Network Service Endpoint option in the Subnet? Defaults to false."
+  description = "Conditionally define multiple network_rules inside the network_rule_set"
   type = list(object({
     subnet_id                            = string
-    ignore_missing_vnet_service_endpoint = bool
+    ignore_missing_vnet_service_endpoint = bool # Defaults to false
   }))
   default = []
 }
@@ -74,7 +80,6 @@ variable "namespace_authorization_rule" {
     send   = bool
     manage = bool
   }))
-
   default = {}
 }
 
@@ -85,7 +90,6 @@ variable "queue" {
     name                 = string
     partitioning_enabled = bool
   }))
-
   default = {}
 }
 
@@ -99,7 +103,6 @@ variable "queue_authorization_rule" {
     send       = bool
     manage     = bool
   }))
-
   default = {}
 }
 

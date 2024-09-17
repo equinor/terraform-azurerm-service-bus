@@ -50,6 +50,12 @@ variable "public_network_access_enabled" {
 }
 
 # network (Private access is only available on Premium namespaces.)
+variable "enable_network_rule_set" {
+  description = "Should the network rule set be enabled for this Service Bus namespace?"
+  type        = bool
+  default     = false # Default to false as it is only available on Premium namespaces
+}
+
 variable "network_default_action" {
   description = "Specifies the default action for the Network Rule Set. Possible values are Allow and Deny."
   type        = string

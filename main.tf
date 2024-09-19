@@ -33,8 +33,8 @@ resource "azurerm_servicebus_namespace" "this" {
     content {
       default_action                = var.network_default_action
       public_network_access_enabled = var.network_public_network_access_enabled
-      trusted_services_allowed      = var.trusted_services_allowed
-      ip_rules                      = var.ip_rules
+      trusted_services_allowed      = var.network_trusted_services_allowed
+      ip_rules                      = var.network_ip_rules
 
       # Conditionally define multiple network_rules inside the network_rule_set
       dynamic "network_rules" {

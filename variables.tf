@@ -68,13 +68,13 @@ variable "network_public_network_access_enabled" {
   default     = true
 }
 
-variable "trusted_services_allowed" {
+variable "network_trusted_services_allowed" {
   description = "Azure Services that are known and trusted for this resource type are allowed to bypass firewall configuration"
   type        = bool
   default     = true
 }
 
-variable "ip_rules" {
+variable "network_ip_rules" {
   description = "One or more IP Addresses, or CIDR Blocks which should be able to access the ServiceBus Namespace."
   type        = list(string)
   default     = []

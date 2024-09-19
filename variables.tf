@@ -59,7 +59,7 @@ variable "enable_network_rule_set" {
 variable "network_default_action" {
   description = "Specifies the default action for the Network Rule Set. Possible values are Allow and Deny."
   type        = string
-  default     = "Allow"
+  default     = "Allow" # Or Deny??
 }
 
 variable "network_public_network_access_enabled" {
@@ -84,7 +84,7 @@ variable "network_rules" {
   description = "Conditionally define multiple network_rules inside the network_rule_set"
   type = list(object({
     subnet_id                            = string
-    ignore_missing_vnet_service_endpoint = bool # Defaults to false
+    ignore_missing_vnet_service_endpoint = bool # Originally defaults to false if not defined
   }))
   default = []
 }

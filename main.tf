@@ -49,7 +49,6 @@ resource "azurerm_servicebus_namespace" "this" {
   tags = var.tags
 }
 
-# Servicebus Namespace Authorization Rule
 resource "azurerm_servicebus_namespace_authorization_rule" "this" {
   for_each = var.namespace_authorization_rule
 
@@ -60,7 +59,6 @@ resource "azurerm_servicebus_namespace_authorization_rule" "this" {
   manage       = each.value.manage
 }
 
-# Servicebus Queue
 resource "azurerm_servicebus_queue" "this" {
   for_each = var.queue
 
@@ -69,7 +67,6 @@ resource "azurerm_servicebus_queue" "this" {
   partitioning_enabled = each.value.partitioning_enabled
 }
 
-# Queue Authorization Rule
 resource "azurerm_servicebus_queue_authorization_rule" "this" {
   depends_on = [azurerm_servicebus_queue.this]
   # depends_on = ["${azurerm_servicebus_queue.this}[${each.value.queue_name}]"]

@@ -84,7 +84,7 @@ variable "network_rules" {
   description = "Conditionally define multiple network_rules inside the network_rule_set"
   type = list(object({
     subnet_id                            = string
-    ignore_missing_vnet_service_endpoint = bool # Originalaly defaults to false if not defined
+    ignore_missing_vnet_service_endpoint = bool # Originally defaults to false if not defined
   }))
   default = []
 }

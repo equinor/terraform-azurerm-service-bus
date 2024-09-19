@@ -26,15 +26,14 @@ resource "azurerm_servicebus_namespace" "this" {
     }
   }
 
-  # Network Rule Set
   dynamic "network_rule_set" {
-    # Conditionally define the entire network_rule_set block based on SKU
+    # Conditionally define the entire network_rule_set block based on SKU and enable_network_rule_set
     for_each = var.sku == "Premium" && var.enable_network_rule_set ? [1] : []
     content {
       default_action                = var.network_default_action
       public_network_access_enabled = var.network_public_network_access_enabled
-      trusted_services_allowed      = var.trusted_services_allowed
-      ip_rules                      = var.ip_rules
+      trusted_services_allowed      = var.network_trusted_services_allowed
+      ip_rules                      = var.network_ip_rules
 
       # Conditionally define multiple network_rules inside the network_rule_set
       dynamic "network_rules" {
@@ -48,39 +47,6 @@ resource "azurerm_servicebus_namespace" "this" {
   }
 
   tags = var.tags
-}
-
-# Servicebus Namespace Authorization Rule
-resource "azurerm_servicebus_namespace_authorization_rule" "this" {
-  for_each = var.namespace_authorization_rule
-
-  name         = each.value.name
-  namespace_id = azurerm_servicebus_namespace.this.id
-  listen       = each.value.listen
-  send         = each.value.send
-  manage       = each.value.manage
-}
-
-# Servicebus Queue
-resource "azurerm_servicebus_queue" "this" {
-  for_each = var.queue
-
-  name                 = each.value.name
-  namespace_id         = azurerm_servicebus_namespace.this.id
-  partitioning_enabled = each.value.partitioning_enabled
-}
-
-# Queue Authorization Rule
-resource "azurerm_servicebus_queue_authorization_rule" "this" {
-  depends_on = [azurerm_servicebus_queue.this]
-  # depends_on = ["${azurerm_servicebus_queue.this}[${each.value.queue_name}]"]
-  for_each = var.queue_authorization_rule
-
-  name     = each.value.name
-  queue_id = "${azurerm_servicebus_namespace.this.id}/queues/${each.value.queue_name}"
-  listen   = each.value.listen
-  send     = each.value.send
-  manage   = each.value.manage
 }
 
 resource "azurerm_monitor_diagnostic_setting" "this" {

@@ -59,7 +59,7 @@ variable "enable_network_rule_set" {
 variable "network_default_action" {
   description = "Specifies the default action for the Network Rule Set. Possible values are Allow and Deny."
   type        = string
-  default     = "Allow"
+  default     = "Allow" # Or Deny??
 }
 
 variable "network_public_network_access_enabled" {
@@ -68,13 +68,13 @@ variable "network_public_network_access_enabled" {
   default     = true
 }
 
-variable "trusted_services_allowed" {
+variable "network_trusted_services_allowed" {
   description = "Azure Services that are known and trusted for this resource type are allowed to bypass firewall configuration"
   type        = bool
   default     = true
 }
 
-variable "ip_rules" {
+variable "network_ip_rules" {
   description = "One or more IP Addresses, or CIDR Blocks which should be able to access the ServiceBus Namespace."
   type        = list(string)
   default     = []
@@ -84,46 +84,10 @@ variable "network_rules" {
   description = "Conditionally define multiple network_rules inside the network_rule_set"
   type = list(object({
     subnet_id                            = string
-    ignore_missing_vnet_service_endpoint = bool # Defaults to false
+    ignore_missing_vnet_service_endpoint = bool # Originalaly defaults to false if not defined
   }))
   default = []
 }
-
-# Servicebus Namespace Authorization Rule
-variable "namespace_authorization_rule" {
-  description = "Manages a ServiceBus Namespace authorization Rule within a ServiceBus."
-  type = map(object({
-    name   = string
-    listen = bool
-    send   = bool
-    manage = bool
-  }))
-  default = {}
-}
-
-# Servicebus Queue
-variable "queue" {
-  description = "Manages a ServiceBus Queue."
-  type = map(object({
-    name                 = string
-    partitioning_enabled = bool # Defaults to false
-  }))
-  default = {}
-}
-
-# Queue Authorization Rule
-variable "queue_authorization_rule" {
-  description = "Manages an Authorization Rule for a ServiceBus Queue."
-  type = map(object({
-    name       = string
-    queue_name = string
-    listen     = bool
-    send       = bool
-    manage     = bool
-  }))
-  default = {}
-}
-
 
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics workspace to send diagnostics to."

@@ -49,7 +49,6 @@ variable "public_network_access_enabled" {
   default     = true
 }
 
-# network (Private access is only available on Premium namespaces.)
 variable "enable_network_rule_set" {
   description = "Should the network rule set be enabled for this Service Bus namespace?"
   type        = bool
@@ -89,7 +88,6 @@ variable "network_rules" {
   default = []
 }
 
-# Servicebus Namespace Authorization Rule
 variable "namespace_authorization_rule" {
   description = "Manages a ServiceBus Namespace authorization Rule within a ServiceBus."
   type = map(object({
@@ -101,17 +99,15 @@ variable "namespace_authorization_rule" {
   default = {}
 }
 
-# Servicebus Queue
 variable "queue" {
   description = "Manages a ServiceBus Queue."
   type = map(object({
     name                 = string
-    partitioning_enabled = bool # Defaults to false
+    partitioning_enabled = bool # Originally defaults to false when not defined
   }))
   default = {}
 }
 
-# Queue Authorization Rule
 variable "queue_authorization_rule" {
   description = "Manages an Authorization Rule for a ServiceBus Queue."
   type = map(object({
@@ -123,7 +119,6 @@ variable "queue_authorization_rule" {
   }))
   default = {}
 }
-
 
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics workspace to send diagnostics to."

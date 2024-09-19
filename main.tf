@@ -28,7 +28,7 @@ resource "azurerm_servicebus_namespace" "this" {
 
   # Network Rule Set
   dynamic "network_rule_set" {
-    # Conditionally define the entire network_rule_set block based on SKU
+    # Conditionally define the entire network_rule_set block based on SKU and enable_network_rule_set
     for_each = var.sku == "Premium" && var.enable_network_rule_set ? [1] : []
     content {
       default_action                = var.network_default_action

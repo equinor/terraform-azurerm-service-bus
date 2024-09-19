@@ -31,6 +31,12 @@ variable "premium_messaging_partitions" {
   default     = 0
 }
 
+variable "public_network_access_enabled" {
+  description = "Is public network access enabled for the Service Bus Namespace?"
+  type        = bool
+  default     = true
+}
+
 variable "system_assigned_identity_enabled" {
   description = "Should the system-assigned identity be enabled for this Service Bus namespace?"
   type        = bool
@@ -41,12 +47,6 @@ variable "identity_ids" {
   description = "A list of IDs of managed identities to be assigned to this Service Bus namespace."
   type        = list(string)
   default     = []
-}
-
-variable "public_network_access_enabled" {
-  description = "Is public network access enabled for the Service Bus Namespace?"
-  type        = bool
-  default     = true
 }
 
 variable "enable_network_rule_set" {

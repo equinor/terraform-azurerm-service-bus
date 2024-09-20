@@ -22,13 +22,15 @@ variable "sku" {
 variable "capacity" {
   description = "Specifies the capacity. Premium allows 1, 2, 4, 8 or 16. Basic or Standard allows 0 only."
   type        = number
-  default     = 0
+  default     = 1
+  nullable    = false
 }
 
 variable "premium_messaging_partitions" {
   description = "Only valid when sku is Premium and the minimum number is 1. Possible values include 0, 1, 2, and 4. Defaults to 0"
   type        = number
-  default     = 0
+  default     = 1
+  nullable    = false
 }
 
 variable "public_network_access_enabled" {
@@ -49,44 +51,27 @@ variable "identity_ids" {
   default     = []
 }
 
-# network (Private access is only available on Premium namespaces.)
-variable "enable_network_rule_set" {
-  description = "Should the network rule set be enabled for this Service Bus namespace?"
-  type        = bool
-  default     = false # Default to false as it is only available on Premium namespaces
-}
-
-variable "network_default_action" {
-  description = "Specifies the default action for the Network Rule Set. Possible values are Allow and Deny."
-  type        = string
-  default     = "Allow" # Or Deny??
-}
-
-variable "network_public_network_access_enabled" {
-  description = "Whether to allow traffic over public network. Possible values are true and false."
-  type        = bool
-  default     = true
-}
-
-variable "network_trusted_services_allowed" {
-  description = "Azure Services that are known and trusted for this resource type are allowed to bypass firewall configuration"
-  type        = bool
-  default     = true
-}
-
-variable "network_ip_rules" {
+variable "network_rule_set_ip_rules" {
   description = "One or more IP Addresses, or CIDR Blocks which should be able to access the ServiceBus Namespace."
   type        = list(string)
   default     = []
 }
 
-variable "network_rules" {
+variable "network_rule_set_virtual_network_rules" {
   description = "Conditionally define multiple network_rules inside the network_rule_set"
+
   type = list(object({
     subnet_id                            = string
-    ignore_missing_vnet_service_endpoint = bool # Originally defaults to false if not defined
+    ignore_missing_vnet_service_endpoint = optional(bool, false)
   }))
+
   default = []
+}
+
+variable "network_rule_set_trusted_services_allowed" {
+  description = "Azure Services that are known and trusted for this resource type are allowed to bypass firewall configuration"
+  type        = bool
+  default     = true
 }
 
 variable "log_analytics_workspace_id" {

@@ -55,12 +55,6 @@ variable "network_rule_set_default_action" {
   default     = "Allow" # Or Deny??
 }
 
-variable "network_rule_set_public_network_access_enabled" {
-  description = "Whether to allow traffic over public network. Possible values are true and false."
-  type        = bool
-  default     = true
-}
-
 variable "network_rule_set_trusted_services_allowed" {
   description = "Azure Services that are known and trusted for this resource type are allowed to bypass firewall configuration"
   type        = bool

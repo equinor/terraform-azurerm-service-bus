@@ -62,7 +62,7 @@ variable "network_rule_set_virtual_network_rules" {
 
   type = list(object({
     subnet_id                            = string
-    ignore_missing_vnet_service_endpoint = bool # Originally defaults to false if not defined
+    ignore_missing_vnet_service_endpoint = optional(bool, false)
   }))
 
   default = []

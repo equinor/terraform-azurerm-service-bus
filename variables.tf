@@ -74,6 +74,38 @@ variable "network_rule_set_trusted_services_allowed" {
   default     = true
 }
 
+variable "namespace_authorization_rule" {
+  description = "Manages a ServiceBus Namespace authorization Rule within a ServiceBus."
+  type = map(object({
+    name   = string
+    listen = bool
+    send   = bool
+    manage = bool
+  }))
+  default = {}
+}
+
+variable "queue" {
+  description = "Manages a ServiceBus Queue."
+  type = map(object({
+    name                 = string
+    partitioning_enabled = optional(bool, false) # Originally defaults to false when not defined
+  }))
+  default = {}
+}
+
+variable "queue_authorization_rule" {
+  description = "Manages an Authorization Rule for a ServiceBus Queue."
+  type = map(object({
+    name       = string
+    queue_name = string
+    listen     = bool
+    send       = bool
+    manage     = bool
+  }))
+  default = {}
+}
+
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics workspace to send diagnostics to."
   type        = string

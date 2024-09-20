@@ -19,6 +19,15 @@ resource "azurerm_servicebus_namespace" "this" {
 
   public_network_access_enabled = var.public_network_access_enabled
 
+  dynamic "identity" {
+    for_each = local.identity_type != "" ? [1] : []
+
+    content {
+      type         = local.identity_type
+      identity_ids = var.identity_ids
+    }
+  }
+
   dynamic "network_rule_set" {
     # Conditionally define the entire network_rule_set block based on SKU
     for_each = var.sku == "Premium" ? [1] : []
@@ -38,15 +47,6 @@ resource "azurerm_servicebus_namespace" "this" {
           ignore_missing_vnet_service_endpoint = network_rules.value["ignore_missing_vnet_service_endpoint"]
         }
       }
-    }
-  }
-
-  dynamic "identity" {
-    for_each = local.identity_type != "" ? [1] : []
-
-    content {
-      type         = local.identity_type
-      identity_ids = var.identity_ids
     }
   }
 

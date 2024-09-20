@@ -19,6 +19,12 @@ variable "sku" {
   default     = "Basic"
 }
 
+variable "local_auth_enabled" {
+  description = "Should local authentication using shared access signatures (SAS) be enabled for this Service Bus namespace? If value is false, Microsoft Entra authentication must be used instead."
+  type        = bool
+  default     = false
+}
+
 variable "capacity" {
   description = "Specifies the capacity. Premium allows 1, 2, 4, 8 or 16. Basic or Standard allows 0 only."
   type        = number

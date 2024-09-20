@@ -19,6 +19,8 @@ resource "azurerm_servicebus_namespace" "this" {
 
   public_network_access_enabled = var.public_network_access_enabled
 
+  local_auth_enabled = var.local_auth_enabled
+
   dynamic "identity" {
     for_each = local.identity_type != "" ? [1] : []
 

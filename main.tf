@@ -25,7 +25,7 @@ resource "azurerm_servicebus_namespace" "this" {
 
     content {
       public_network_access_enabled = var.public_network_access_enabled
-      default_action                = var.network_rule_set_default_action
+      default_action                = length(var.network_rule_set_ip_rules) == 0 && length(var.network_rules) == 0 ? "Allow" : "Deny"
       trusted_services_allowed      = var.network_rule_set_trusted_services_allowed
       ip_rules                      = var.network_rule_set_ip_rules
 

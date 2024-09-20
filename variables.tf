@@ -51,12 +51,6 @@ variable "identity_ids" {
   default     = []
 }
 
-variable "network_rule_set_default_action" {
-  description = "Specifies the default action for the Network Rule Set. Possible values are Allow and Deny."
-  type        = string
-  default     = "Deny"
-}
-
 variable "network_rule_set_trusted_services_allowed" {
   description = "Azure Services that are known and trusted for this resource type are allowed to bypass firewall configuration"
   type        = bool
@@ -71,10 +65,12 @@ variable "network_rule_set_ip_rules" {
 
 variable "network_rules" {
   description = "Conditionally define multiple network_rules inside the network_rule_set"
+
   type = list(object({
     subnet_id                            = string
     ignore_missing_vnet_service_endpoint = bool # Originally defaults to false if not defined
   }))
+
   default = []
 }
 

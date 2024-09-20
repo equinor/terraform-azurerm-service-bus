@@ -56,25 +56,25 @@ variable "enable_network_rule_set" {
   default     = false # Default to false as it is only available on Premium namespaces
 }
 
-variable "network_default_action" {
+variable "network_rule_set_default_action" {
   description = "Specifies the default action for the Network Rule Set. Possible values are Allow and Deny."
   type        = string
   default     = "Allow" # Or Deny??
 }
 
-variable "network_public_network_access_enabled" {
+variable "network_rule_set_public_network_access_enabled" {
   description = "Whether to allow traffic over public network. Possible values are true and false."
   type        = bool
   default     = true
 }
 
-variable "network_trusted_services_allowed" {
+variable "network_rule_set_trusted_services_allowed" {
   description = "Azure Services that are known and trusted for this resource type are allowed to bypass firewall configuration"
   type        = bool
   default     = true
 }
 
-variable "network_ip_rules" {
+variable "network_rule_set_ip_rules" {
   description = "One or more IP Addresses, or CIDR Blocks which should be able to access the ServiceBus Namespace."
   type        = list(string)
   default     = []

@@ -14,6 +14,8 @@ resource "azurerm_servicebus_namespace" "this" {
   resource_group_name = var.resource_group_name
   sku                 = var.sku
 
+  local_auth_enabled = var.local_auth_enabled
+
   dynamic "identity" {
     for_each = local.identity_type != "" ? [1] : []
 

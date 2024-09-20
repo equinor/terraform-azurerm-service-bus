@@ -54,7 +54,7 @@ variable "identity_ids" {
 variable "network_rule_set_default_action" {
   description = "Specifies the default action for the Network Rule Set. Possible values are Allow and Deny."
   type        = string
-  default     = "Allow" # Or Deny??
+  default     = "Deny"
 }
 
 variable "network_rule_set_trusted_services_allowed" {

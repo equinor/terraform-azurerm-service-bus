@@ -88,11 +88,7 @@ variable "log_analytics_workspace_id" {
 variable "diagnostic_setting_enabled_log_categories" {
   description = "A list of log categories to be enabled for this diagnostic setting."
   type        = list(string)
-
-  default = [
-    "OperationalLogs",
-    "VNetAndIPFilteringLogs" # Costless ServiceBus Namespace categories
-  ]
+  default     = ["RuntimeAuditLogs"]
 }
 
 variable "diagnostic_setting_enabled_metric_categories" {

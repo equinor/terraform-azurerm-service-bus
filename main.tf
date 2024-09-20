@@ -25,13 +25,13 @@ resource "azurerm_servicebus_namespace" "this" {
 
     content {
       public_network_access_enabled = var.public_network_access_enabled
-      default_action                = length(var.network_rule_set_ip_rules) == 0 && length(var.network_rules) == 0 ? "Allow" : "Deny"
-      trusted_services_allowed      = var.network_rule_set_trusted_services_allowed
+      default_action                = length(var.network_rule_set_ip_rules) == 0 && length(var.network_rule_set_virtual_network_rules) == 0 ? "Allow" : "Deny"
       ip_rules                      = var.network_rule_set_ip_rules
+      trusted_services_allowed      = var.network_rule_set_trusted_services_allowed
 
       # Conditionally define multiple network_rules inside the network_rule_set
       dynamic "network_rules" {
-        for_each = var.network_rules
+        for_each = var.network_rule_set_virtual_network_rules
 
         content {
           subnet_id                            = network_rules.value["subnet_id"]

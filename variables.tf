@@ -51,19 +51,13 @@ variable "identity_ids" {
   default     = []
 }
 
-variable "network_rule_set_trusted_services_allowed" {
-  description = "Azure Services that are known and trusted for this resource type are allowed to bypass firewall configuration"
-  type        = bool
-  default     = true
-}
-
 variable "network_rule_set_ip_rules" {
   description = "One or more IP Addresses, or CIDR Blocks which should be able to access the ServiceBus Namespace."
   type        = list(string)
   default     = []
 }
 
-variable "network_rules" {
+variable "network_rule_set_virtual_network_rules" {
   description = "Conditionally define multiple network_rules inside the network_rule_set"
 
   type = list(object({
@@ -72,6 +66,12 @@ variable "network_rules" {
   }))
 
   default = []
+}
+
+variable "network_rule_set_trusted_services_allowed" {
+  description = "Azure Services that are known and trusted for this resource type are allowed to bypass firewall configuration"
+  type        = bool
+  default     = true
 }
 
 variable "log_analytics_workspace_id" {

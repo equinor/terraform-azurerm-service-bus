@@ -22,13 +22,15 @@ variable "sku" {
 variable "capacity" {
   description = "Specifies the capacity. Premium allows 1, 2, 4, 8 or 16. Basic or Standard allows 0 only."
   type        = number
-  default     = 0
+  default     = 1
+  nullable    = false
 }
 
 variable "premium_messaging_partitions" {
   description = "Only valid when sku is Premium and the minimum number is 1. Possible values include 0, 1, 2, and 4. Defaults to 0"
   type        = number
-  default     = 0
+  default     = 1
+  nullable    = false
 }
 
 variable "public_network_access_enabled" {

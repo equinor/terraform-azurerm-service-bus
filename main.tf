@@ -9,26 +9,20 @@ locals {
 }
 
 resource "azurerm_servicebus_namespace" "this" {
-  name                          = var.namespace_name
-  location                      = var.location
-  resource_group_name           = var.resource_group_name
-  sku                           = var.sku
-  capacity                      = var.capacity
-  premium_messaging_partitions  = var.premium_messaging_partitions
+  name                = var.namespace_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  sku                          = var.sku
+  capacity                     = var.sku == "Premium" ? var.capacity : 0
+  premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : 0
+
   public_network_access_enabled = var.public_network_access_enabled
 
-  dynamic "identity" {
-    for_each = local.identity_type != "" ? [1] : []
-
-    content {
-      type         = local.identity_type
-      identity_ids = var.identity_ids
-    }
-  }
-
   dynamic "network_rule_set" {
-    # Conditionally define the entire network_rule_set block based on SKU and enable_network_rule_set
-    for_each = var.sku == "Premium" ? [0] : []
+    # Conditionally define the entire network_rule_set block based on SKU
+    for_each = var.sku == "Premium" ? [1] : []
+
     content {
       public_network_access_enabled = var.public_network_access_enabled
       default_action                = var.network_rule_set_default_action
@@ -38,11 +32,21 @@ resource "azurerm_servicebus_namespace" "this" {
       # Conditionally define multiple network_rules inside the network_rule_set
       dynamic "network_rules" {
         for_each = var.network_rules
+
         content {
           subnet_id                            = network_rules.value["subnet_id"]
           ignore_missing_vnet_service_endpoint = network_rules.value["ignore_missing_vnet_service_endpoint"]
         }
       }
+    }
+  }
+
+  dynamic "identity" {
+    for_each = local.identity_type != "" ? [1] : []
+
+    content {
+      type         = local.identity_type
+      identity_ids = var.identity_ids
     }
   }
 

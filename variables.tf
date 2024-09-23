@@ -1,22 +1,26 @@
 variable "namespace_name" {
-  description = "The name of the Servicebus Namespace"
+  description = "The name of this Service Bus namespace."
   type        = string
+  nullable    = false
 }
 
 variable "resource_group_name" {
   description = "The name of the resource group to create the resources in."
   type        = string
+  nullable    = false
 }
 
 variable "location" {
   description = "The location to create the resources in."
   type        = string
+  nullable    = false
 }
 
 variable "sku" {
-  description = "Defines which SKU to use. Options are Basic, Standard or Premium."
+  description = "The SKU to use for this Service Bus namespace. Value must be \"Basic\", \"Standard\" or \"Premium\"."
   type        = string
   default     = "Basic"
+  nullable    = false
 }
 
 variable "local_auth_enabled" {

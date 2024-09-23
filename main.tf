@@ -17,6 +17,8 @@ resource "azurerm_servicebus_namespace" "this" {
   capacity                     = var.sku == "Premium" ? var.capacity : 0
   premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : 0
 
+  local_auth_enabled = var.local_auth_enabled
+
   public_network_access_enabled = var.public_network_access_enabled
 
   dynamic "identity" {

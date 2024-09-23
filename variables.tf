@@ -19,6 +19,12 @@ variable "sku" {
   default     = "Basic"
 }
 
+variable "local_auth_enabled" {
+  description = "Should local authentication using shared access signatures (SAS) be enabled for this Service Bus namespace? If value is false, Microsoft Entra authentication must be used instead."
+  type        = bool
+  default     = false
+}
+
 variable "capacity" {
   description = "Specifies the capacity. Premium allows 1, 2, 4, 8 or 16. Basic or Standard allows 0 only."
   type        = number
@@ -72,38 +78,6 @@ variable "network_rule_set_trusted_services_allowed" {
   description = "Azure Services that are known and trusted for this resource type are allowed to bypass firewall configuration"
   type        = bool
   default     = true
-}
-
-variable "namespace_authorization_rule" {
-  description = "Manages a ServiceBus Namespace authorization Rule within a ServiceBus."
-  type = map(object({
-    name   = string
-    listen = bool
-    send   = bool
-    manage = bool
-  }))
-  default = {}
-}
-
-variable "queue" {
-  description = "Manages a ServiceBus Queue."
-  type = map(object({
-    name                 = string
-    partitioning_enabled = optional(bool, false) # Originally defaults to false when not defined
-  }))
-  default = {}
-}
-
-variable "queue_authorization_rule" {
-  description = "Manages an Authorization Rule for a ServiceBus Queue."
-  type = map(object({
-    name       = string
-    queue_name = string
-    listen     = bool
-    send       = bool
-    manage     = bool
-  }))
-  default = {}
 }
 
 variable "log_analytics_workspace_id" {

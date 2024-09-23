@@ -95,7 +95,7 @@ variable "queue" {
   description = "Manages a ServiceBus Queue."
   type = map(object({
     name                 = string
-    partitioning_enabled = bool # Originally defaults to false when not defined
+    partitioning_enabled = optional(bool, false)
   }))
   default = {}
 }

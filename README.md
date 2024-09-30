@@ -6,27 +6,18 @@
 
 Terraform module which creates Azure Service Bus resources.
 
+## Features
+
+- Microsoft Entra authentication enforced by default.
+- Public network access denied by default.
+- Audit logs sent to given Log Analytics workspace by default.
+
 ## Development
 
-1. Read [this document](https://code.visualstudio.com/docs/devcontainers/containers).
-
-1. Clone this repository.
-
-1. Configure Terraform variables in a file `.devcontainer/devcontainer.env`:
-
-    ```env
-    TF_VAR_resource_group_name=
-    TF_VAR_location=
-    ```
-
-1. Open repository in dev container.
-
-## Testing
-
-1. Change to the test directory:
+1. Clone this repository:
 
     ```console
-    cd test
+    git clone https://github.com/equinor/terraform-azurerm-service-bus.git
     ```
 
 1. Login to Azure:
@@ -35,17 +26,29 @@ Terraform module which creates Azure Service Bus resources.
     az login
     ```
 
-1. Set active subscription:
+1. Set environment variables:
 
     ```console
-    az account set -s <SUBSCRIPTION_NAME_OR_ID>
+    export ARM_SUBSCRIPTION_ID=<SUBSCRIPTION_ID>
+    export TF_VAR_resource_group_name=<RESOURCE_GROUP_NAME>
+    export TF_VAR_location=<LOCATION>
     ```
 
-1. Run tests:
+## Testing
+
+1. Initialize working directory:
 
     ```console
-    go test -timeout 60m
+    terraform init
     ```
+
+1. Execute tests:
+
+    ```console
+    terraform test
+    ```
+
+    See [`terraform test` command documentation](https://developer.hashicorp.com/terraform/cli/commands/test) for options.
 
 ## Contributing
 

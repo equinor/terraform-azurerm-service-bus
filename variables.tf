@@ -75,6 +75,17 @@ variable "identity_ids" {
   nullable    = false
 }
 
+variable "network_rule_set_default_action" {
+  description = "The default action for the network rule set of this Service Bus namespace. Value must be \"Allow\" or \"Deny\"."
+  type        = string
+  default     = "Deny"
+
+  validation {
+    condition     = contains(["Allow", "Deny"], var.network_rule_set_default_action)
+    error_message = "Network rule set default action must be \"Allow\" or \"Deny\"."
+  }
+}
+
 variable "network_rule_set_ip_rules" {
   description = "A list of public IP addresses or ranges that should be able to bypass the network rule set for this Service Bus namespace. Values must be in CIDR format. Only applicable if value of sku is \"Premium\"."
   type        = list(string)
@@ -110,12 +121,7 @@ variable "log_analytics_workspace_id" {
 variable "diagnostic_setting_enabled_log_categories" {
   description = "A list of log categories to be enabled for this diagnostic setting."
   type        = list(string)
-
-  default = [
-    "OperationalLogs",
-    "VNetAndIPFilteringLogs" # Costless ServiceBus Namespace categories
-  ]
-  nullable = false
+  default     = ["RuntimeAuditLogs"]
 }
 
 variable "diagnostic_setting_enabled_metric_categories" {

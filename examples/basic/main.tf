@@ -2,25 +2,25 @@ provider "azurerm" {
   features {}
 }
 
-resource "random_id" "this" {
+resource "random_id" "suffix" {
   byte_length = 8
 }
 
 module "log_analytics" {
-  source = "github.com/equinor/terraform-azurerm-log-analytics?ref=v2.1.1"
+  source  = "equinor/log-analytics/azurerm"
+  version = "2.2.3"
 
-  workspace_name      = "log-${random_id.this.hex}"
+  workspace_name      = "log-${random_id.suffix.hex}"
   resource_group_name = var.resource_group_name
   location            = var.location
 }
 
-module "servicebus" {
-  # source = "github.com/equinor/terraform-azurerm-service-bus?ref=v0.0.0"
+module "service_bus" {
+  # source  = "equinor/service-bus/azurerm"
   source = "../.."
 
-  namespace_name             = "servicebus-namespace-${random_id.this.hex}"
+  namespace_name             = "sbns-${random_id.suffix.hex}"
   resource_group_name        = var.resource_group_name
   location                   = var.location
-  sku                        = "Basic"
   log_analytics_workspace_id = module.log_analytics.workspace_id
 }

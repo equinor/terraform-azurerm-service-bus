@@ -107,7 +107,6 @@ variable "topic" {
     partitioning_enabled = optional(bool, false)
   }))
   default = {}
-
 }
 
 variable "queue_authorization_rule" {

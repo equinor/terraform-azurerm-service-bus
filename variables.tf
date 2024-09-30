@@ -57,6 +57,17 @@ variable "identity_ids" {
   default     = []
 }
 
+variable "network_rule_set_default_action" {
+  description = "The default action for the network rule set of this Service Bus namespace. Value must be \"Allow\" or \"Deny\"."
+  type        = string
+  default     = "Deny"
+
+  validation {
+    condition     = contains(["Allow", "Deny"], var.network_rule_set_default_action)
+    error_message = "Network rule set default action must be \"Allow\" or \"Deny\"."
+  }
+}
+
 variable "network_rule_set_ip_rules" {
   description = "One or more IP Addresses, or CIDR Blocks which should be able to access the ServiceBus Namespace."
   type        = list(string)

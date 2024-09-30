@@ -23,8 +23,8 @@ resource "azurerm_servicebus_namespace" "this" {
     for_each = var.sku == "Premium" ? [0] : []
 
     content {
-      public_network_access_enabled = var.public_network_access_enabled
-      default_action                = length(var.network_rule_set_ip_rules) == 0 && length(var.network_rule_set_virtual_network_rules) == 0 ? "Allow" : "Deny"
+      public_network_access_enabled = var.public_network_access_enabled && (var.network_rule_set_default_action == "Allow" || length(var.network_rule_set_ip_rules) > 0 || length(var.network_rule_set_virtual_network_rules) > 0)
+      default_action                = var.network_rule_set_default_action
       ip_rules                      = var.network_rule_set_ip_rules
       trusted_services_allowed      = var.network_rule_set_trusted_services_allowed
 

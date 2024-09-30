@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.4.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.3.0...v1.4.0) (2024-09-30)
+
+
+### Features
+
+* configure network rule set ([#50](https://github.com/equinor/terraform-azurerm-service-bus/issues/50)) ([a0f05ed](https://github.com/equinor/terraform-azurerm-service-bus/commit/a0f05eded68f1647cff78cadfdc4dc507aed056a))
+* deny public network access by default ([#58](https://github.com/equinor/terraform-azurerm-service-bus/issues/58)) ([5c53ac8](https://github.com/equinor/terraform-azurerm-service-bus/commit/5c53ac8ed6942edf66d58b238839b166fe7b5999))
+* disable local authentication by default ([#53](https://github.com/equinor/terraform-azurerm-service-bus/issues/53)) ([021714d](https://github.com/equinor/terraform-azurerm-service-bus/commit/021714d5a8c615d71e4f73917857e980df98b127))
+* send only audit logs to Log Analytics by default ([#56](https://github.com/equinor/terraform-azurerm-service-bus/issues/56)) ([d38e3a1](https://github.com/equinor/terraform-azurerm-service-bus/commit/d38e3a10c807e66777b485c42cc6bbe054b8b691))
+
 ## [1.3.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.2.0...v1.3.0) (2024-03-21)
 
 

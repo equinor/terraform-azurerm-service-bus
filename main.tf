@@ -1,5 +1,4 @@
 locals {
-
   # If system_assigned_identity_enabled is true, value is "SystemAssigned".
   # If identity_ids is non-empty, value is "UserAssigned".
   # If system_assigned_identity_enabled is true and identity_ids is non-empty, value is "SystemAssigned, UserAssigned".
@@ -17,22 +16,11 @@ resource "azurerm_servicebus_namespace" "this" {
   capacity                     = var.sku == "Premium" ? var.capacity : 0
   premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : 0
 
-  local_auth_enabled = var.local_auth_enabled
-
+  local_auth_enabled            = var.local_auth_enabled
   public_network_access_enabled = var.public_network_access_enabled
 
-  dynamic "identity" {
-    for_each = local.identity_type != "" ? [1] : []
-
-    content {
-      type         = local.identity_type
-      identity_ids = var.identity_ids
-    }
-  }
-
   dynamic "network_rule_set" {
-    # Conditionally define the entire network_rule_set block based on SKU
-    for_each = var.sku == "Premium" ? [1] : []
+    for_each = var.sku == "Premium" ? [0] : []
 
     content {
       public_network_access_enabled = var.public_network_access_enabled
@@ -40,7 +28,6 @@ resource "azurerm_servicebus_namespace" "this" {
       ip_rules                      = var.network_rule_set_ip_rules
       trusted_services_allowed      = var.network_rule_set_trusted_services_allowed
 
-      # Conditionally define multiple network_rules inside the network_rule_set
       dynamic "network_rules" {
         for_each = var.network_rule_set_virtual_network_rules
 
@@ -49,6 +36,15 @@ resource "azurerm_servicebus_namespace" "this" {
           ignore_missing_vnet_service_endpoint = network_rules.value["ignore_missing_vnet_service_endpoint"]
         }
       }
+    }
+  }
+
+  dynamic "identity" {
+    for_each = local.identity_type != "" ? [0] : []
+
+    content {
+      type         = local.identity_type
+      identity_ids = var.identity_ids
     }
   }
 

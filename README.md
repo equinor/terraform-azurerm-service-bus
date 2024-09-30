@@ -6,6 +6,12 @@
 
 Terraform module which creates Azure Service Bus resources.
 
+## Features
+
+- Microsoft Entra authentication enforced by default.
+- Public network access denied by default.
+- Audit logs sent to given Log Analytics workspace by default.
+
 ## Development
 
 1. Clone this repository:

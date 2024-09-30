@@ -100,6 +100,16 @@ variable "queue" {
   default = {}
 }
 
+variable "topic" {
+  description = "Manages a ServiceBus Topic."
+  type = map(object({
+    name                 = string
+    partitioning_enabled = optional(bool, false)
+  }))
+  default = {}
+
+}
+
 variable "queue_authorization_rule" {
   description = "Manages an Authorization Rule for a ServiceBus Queue."
   type = map(object({

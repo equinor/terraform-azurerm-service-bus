@@ -84,6 +84,14 @@ resource "azurerm_servicebus_queue_authorization_rule" "this" {
   manage   = each.value.manage
 }
 
+resource "azurerm_servicebus_topic" "this" {
+  for_each = var.topic
+
+  name                 = each.value.name
+  namespace_id         = azurerm_servicebus_namespace.this.id
+  partitioning_enabled = each.value.partitioning_enabled
+}
+
 resource "azurerm_monitor_diagnostic_setting" "this" {
   name                       = var.diagnostic_setting_name
   target_resource_id         = azurerm_servicebus_namespace.this.id

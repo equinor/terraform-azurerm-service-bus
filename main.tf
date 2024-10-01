@@ -1,10 +1,4 @@
 locals {
-  # The 'public_network_access_enabled' should only be set to true if 'network_rule_set_ip_rules' or 'network_rule_set_virtual_network_rules' is non-empty.
-  public_network_access_enabled = length(var.network_rule_set_ip_rules) > 0 || length(var.network_rule_set_virtual_network_rules) > 0
-
-  # The 'default_action' can only be set to "Allow" if no 'ip_rules' or 'network_rules' is set.
-  network_rule_set_default_action = length(var.network_rule_set_ip_rules) == 0 && length(var.network_rule_set_virtual_network_rules) == 0 ? "Allow" : "Deny"
-
   # If 'system_assigned_identity_enabled' is true, value is "SystemAssigned".
   # If 'identity_ids' is non-empty, value is "UserAssigned".
   # If 'system_assigned_identity_enabled' is true and 'identity_ids' is non-empty, value is "SystemAssigned, UserAssigned".
@@ -23,14 +17,15 @@ resource "azurerm_servicebus_namespace" "this" {
   premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : 0
 
   local_auth_enabled            = var.local_auth_enabled
-  public_network_access_enabled = local.public_network_access_enabled
+  public_network_access_enabled = var.public_network_access_enabled
 
   dynamic "network_rule_set" {
     for_each = var.sku == "Premium" ? [0] : []
 
     content {
-      default_action                = local.network_rule_set_default_action
-      public_network_access_enabled = local.public_network_access_enabled
+      # The 'default_action' can only be set to "Allow" if no 'ip_rules' or 'network_rules' is set.
+      default_action                = length(var.network_rule_set_ip_rules) == 0 && length(var.network_rule_set_virtual_network_rules) == 0 ? "Allow" : "Deny"
+      public_network_access_enabled = var.public_network_access_enabled
       ip_rules                      = var.network_rule_set_ip_rules
       trusted_services_allowed      = var.network_rule_set_trusted_services_allowed
 

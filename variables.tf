@@ -54,6 +54,13 @@ variable "premium_messaging_partitions" {
   }
 }
 
+variable "public_network_access_enabled" {
+  description = "Is public network access enabled for the Service Bus namespace?"
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
 variable "system_assigned_identity_enabled" {
   description = "Should the system-assigned identity be enabled for this Service Bus namespace?"
   type        = bool

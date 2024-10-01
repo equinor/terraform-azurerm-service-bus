@@ -1,13 +1,13 @@
 locals {
+  # The 'public_network_access_enabled' should only be set to true if 'network_rule_set_ip_rules' or 'network_rule_set_virtual_network_rules' is non-empty.
+  public_network_access_enabled = length(var.network_rule_set_ip_rules) > 0 || length(var.network_rule_set_virtual_network_rules) > 0
+
   # The 'default_action' can only be set to "Allow" if no 'ip_rules' or 'network_rules' is set.
   network_rule_set_default_action = length(var.network_rule_set_ip_rules) == 0 && length(var.network_rule_set_virtual_network_rules) == 0 ? "Allow" : "Deny"
 
-  # TODO(@hknutsen): write a description
-  public_network_access_enabled = length(var.network_rule_set_ip_rules) > 0 || length(var.network_rule_set_virtual_network_rules) > 0
-
-  # If system_assigned_identity_enabled is true, value is "SystemAssigned".
-  # If identity_ids is non-empty, value is "UserAssigned".
-  # If system_assigned_identity_enabled is true and identity_ids is non-empty, value is "SystemAssigned, UserAssigned".
+  # If 'system_assigned_identity_enabled' is true, value is "SystemAssigned".
+  # If 'identity_ids' is non-empty, value is "UserAssigned".
+  # If 'system_assigned_identity_enabled' is true and 'identity_ids' is non-empty, value is "SystemAssigned, UserAssigned".
   identity_type = join(", ", compact([var.system_assigned_identity_enabled ? "SystemAssigned" : "", length(var.identity_ids) > 0 ? "UserAssigned" : ""]))
 
   diagnostic_setting_metric_categories = ["AllMetrics"]

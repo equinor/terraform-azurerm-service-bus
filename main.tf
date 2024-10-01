@@ -26,9 +26,9 @@ resource "azurerm_servicebus_namespace" "this" {
       public_network_access_enabled = var.public_network_access_enabled
 
       # The 'default_action' can only be set to "Allow" if no 'ip_rules' or 'network_rules' is set.
-      default_action                = length(var.network_rule_set_ip_rules) == 0 && length(var.network_rule_set_virtual_network_rules) == 0 ? "Allow" : "Deny"
-      ip_rules                      = var.network_rule_set_ip_rules
-      trusted_services_allowed      = var.network_rule_set_trusted_services_allowed
+      default_action           = length(var.network_rule_set_ip_rules) == 0 && length(var.network_rule_set_virtual_network_rules) == 0 ? "Allow" : "Deny"
+      ip_rules                 = var.network_rule_set_ip_rules
+      trusted_services_allowed = var.network_rule_set_trusted_services_allowed
 
       dynamic "network_rules" {
         for_each = var.network_rule_set_virtual_network_rules

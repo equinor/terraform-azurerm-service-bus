@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.4.0...v1.4.1) (2024-10-02)
+
+
+### Bug Fixes
+
+* disable public network access by default ([#62](https://github.com/equinor/terraform-azurerm-service-bus/issues/62)) ([558e9da](https://github.com/equinor/terraform-azurerm-service-bus/commit/558e9daa973d8a5516182155bbe66f74185e9000))
+
 ## [1.4.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.3.0...v1.4.0) (2024-09-30)
 
 

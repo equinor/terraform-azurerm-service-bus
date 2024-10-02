@@ -17,6 +17,11 @@ run "basic_sku" {
   }
 
   assert {
+    condition     = azurerm_servicebus_namespace.this.public_network_access_enabled == false
+    error_message = "Invalid public network access"
+  }
+
+  assert {
     condition     = length(azurerm_servicebus_namespace.this.network_rule_set) == 0
     error_message = "Network rule set block created when it should not have been"
   }
@@ -32,6 +37,11 @@ run "standard_sku" {
     log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
 
     sku = "Standard"
+  }
+
+  assert {
+    condition     = azurerm_servicebus_namespace.this.public_network_access_enabled == false
+    error_message = "Invalid public network access"
   }
 
   assert {
@@ -53,12 +63,17 @@ run "premium_sku" {
   }
 
   assert {
+    condition     = azurerm_servicebus_namespace.this.public_network_access_enabled == false
+    error_message = "Invalid public network access"
+  }
+
+  assert {
     condition     = azurerm_servicebus_namespace.this.network_rule_set[0].public_network_access_enabled == false
     error_message = "Invalid network rule set public network access"
   }
 
   assert {
-    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].default_action == "Deny"
+    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].default_action == "Allow"
     error_message = "Invalid network rule set default action"
   }
 
@@ -78,7 +93,7 @@ run "premium_sku" {
   }
 }
 
-run "public_network_access_disabled" {
+run "public_network_access_enabled" {
   command = plan
 
   variables {
@@ -89,42 +104,12 @@ run "public_network_access_disabled" {
 
     sku = "Premium"
 
-    public_network_access_enabled = false
+    public_network_access_enabled = true
   }
 
   assert {
-    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].public_network_access_enabled == false
-    error_message = "Invalid network rule set public network access"
-  }
-
-  assert {
-    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].default_action == "Deny"
-    error_message = "Invalid network rule set default action"
-  }
-
-  assert {
-    condition     = length(azurerm_servicebus_namespace.this.network_rule_set[0].ip_rules) == 0
-    error_message = "Invalid number of network rule set IP rules"
-  }
-
-  assert {
-    condition     = length(azurerm_servicebus_namespace.this.network_rule_set[0].network_rules) == 0
-    error_message = "Invalid number of network rule set virtual network rules"
-  }
-}
-
-run "network_rule_set_default_action" {
-  command = plan
-
-  variables {
-    namespace_name             = run.setup_tests.namespace_name
-    resource_group_name        = run.setup_tests.resource_group_name
-    location                   = run.setup_tests.location
-    log_analytics_workspace_id = run.setup_tests.log_analytics_workspace_id
-
-    sku = "Premium"
-
-    network_rule_set_default_action = "Allow"
+    condition     = azurerm_servicebus_namespace.this.public_network_access_enabled == true
+    error_message = "Invalid public network access"
   }
 
   assert {
@@ -146,6 +131,11 @@ run "network_rule_set_default_action" {
     condition     = length(azurerm_servicebus_namespace.this.network_rule_set[0].network_rules) == 0
     error_message = "Invalid number of network rule set virtual network rules"
   }
+
+  assert {
+    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].trusted_services_allowed == true
+    error_message = "Invalid network rule set trusted services"
+  }
 }
 
 run "network_rule_set_ip_rules" {
@@ -159,7 +149,13 @@ run "network_rule_set_ip_rules" {
 
     sku = "Premium"
 
-    network_rule_set_ip_rules = ["1.1.1.1/32", "2.2.2.2/32", "3.3.3.3/31"]
+    public_network_access_enabled = true
+    network_rule_set_ip_rules     = ["1.1.1.1/32", "2.2.2.2/32", "3.3.3.3/31"]
+  }
+
+  assert {
+    condition     = azurerm_servicebus_namespace.this.public_network_access_enabled == true
+    error_message = "Invalid public network access"
   }
 
   assert {
@@ -194,6 +190,7 @@ run "network_rule_set_virtual_network_rules" {
 
     sku = "Premium"
 
+    public_network_access_enabled = true
     network_rule_set_virtual_network_rules = [
       {
         subnet_id = run.setup_tests.subnet_ids[0]
@@ -205,6 +202,11 @@ run "network_rule_set_virtual_network_rules" {
         subnet_id = run.setup_tests.subnet_ids[2]
       }
     ]
+  }
+
+  assert {
+    condition     = azurerm_servicebus_namespace.this.public_network_access_enabled == true
+    error_message = "Invalid public network access"
   }
 
   assert {
@@ -243,12 +245,17 @@ run "network_rule_set_trusted_services_allowed" {
   }
 
   assert {
+    condition     = azurerm_servicebus_namespace.this.public_network_access_enabled == false
+    error_message = "Invalid public network access"
+  }
+
+  assert {
     condition     = azurerm_servicebus_namespace.this.network_rule_set[0].public_network_access_enabled == false
     error_message = "Invalid network rule set public network access"
   }
 
   assert {
-    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].default_action == "Deny"
+    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].default_action == "Allow"
     error_message = "Invalid network rule set default action"
   }
 

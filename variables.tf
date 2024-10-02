@@ -55,9 +55,9 @@ variable "premium_messaging_partitions" {
 }
 
 variable "public_network_access_enabled" {
-  description = "Is public network access enabled for the Service Bus namespace? Only applicable if value of sku is \"Premium\"."
+  description = "Is public network access enabled for the Service Bus namespace?"
   type        = bool
-  default     = true
+  default     = false
   nullable    = false
 }
 
@@ -73,17 +73,6 @@ variable "identity_ids" {
   type        = list(string)
   default     = []
   nullable    = false
-}
-
-variable "network_rule_set_default_action" {
-  description = "The default action for the network rule set of this Service Bus namespace. Value must be \"Allow\" or \"Deny\"."
-  type        = string
-  default     = "Deny"
-
-  validation {
-    condition     = contains(["Allow", "Deny"], var.network_rule_set_default_action)
-    error_message = "Network rule set default action must be \"Allow\" or \"Deny\"."
-  }
 }
 
 variable "network_rule_set_ip_rules" {

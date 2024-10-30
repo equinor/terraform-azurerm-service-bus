@@ -22,8 +22,28 @@ run "basic_sku" {
   }
 
   assert {
-    condition     = length(azurerm_servicebus_namespace.this.network_rule_set) == 0
-    error_message = "Network rule set block created when it should not have been"
+    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].public_network_access_enabled == false
+    error_message = "Invalid network rule set public network access"
+  }
+
+  assert {
+    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].default_action == "Allow"
+    error_message = "Invalid network rule set default action"
+  }
+
+  assert {
+    condition     = length(azurerm_servicebus_namespace.this.network_rule_set[0].ip_rules) == 0
+    error_message = "Invalid number of network rule set IP rules"
+  }
+
+  assert {
+    condition     = length(azurerm_servicebus_namespace.this.network_rule_set[0].network_rules) == 0
+    error_message = "Invalid number of network rule set virtual network rules"
+  }
+
+  assert {
+    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].trusted_services_allowed == true
+    error_message = "Invalid network rule set trusted services"
   }
 }
 
@@ -45,8 +65,28 @@ run "standard_sku" {
   }
 
   assert {
-    condition     = length(azurerm_servicebus_namespace.this.network_rule_set) == 0
-    error_message = "Network rule set block created when it should not have been"
+    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].public_network_access_enabled == false
+    error_message = "Invalid network rule set public network access"
+  }
+
+  assert {
+    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].default_action == "Allow"
+    error_message = "Invalid network rule set default action"
+  }
+
+  assert {
+    condition     = length(azurerm_servicebus_namespace.this.network_rule_set[0].ip_rules) == 0
+    error_message = "Invalid number of network rule set IP rules"
+  }
+
+  assert {
+    condition     = length(azurerm_servicebus_namespace.this.network_rule_set[0].network_rules) == 0
+    error_message = "Invalid number of network rule set virtual network rules"
+  }
+
+  assert {
+    condition     = azurerm_servicebus_namespace.this.network_rule_set[0].trusted_services_allowed == true
+    error_message = "Invalid network rule set trusted services"
   }
 }
 

@@ -76,7 +76,7 @@ variable "identity_ids" {
 }
 
 variable "network_rule_set_ip_rules" {
-  description = "A list of public IP addresses or ranges that should be able to bypass the network rule set for this Service Bus namespace. Values must be in CIDR format. Only applicable if value of sku is \"Premium\"."
+  description = "A list of public IP addresses or ranges that should be able to bypass the network rule set for this Service Bus namespace. Values must be in CIDR format."
   type        = list(string)
   default     = []
   nullable    = false
@@ -95,7 +95,7 @@ variable "network_rule_set_virtual_network_rules" {
 }
 
 variable "network_rule_set_trusted_services_allowed" {
-  description = "Should Azure services be allowed to bypass the network rule set for this Service Bus namespace? Only applicable if value of sku is \"Premium\"."
+  description = "Should Azure services be allowed to bypass the network rule set for this Service Bus namespace?"
   type        = bool
   default     = true
   nullable    = false

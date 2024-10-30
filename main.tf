@@ -19,24 +19,20 @@ resource "azurerm_servicebus_namespace" "this" {
   local_auth_enabled            = var.local_auth_enabled
   public_network_access_enabled = var.public_network_access_enabled
 
-  dynamic "network_rule_set" {
-    for_each = var.sku == "Premium" ? [0] : []
+  network_rule_set {
+    public_network_access_enabled = var.public_network_access_enabled
 
-    content {
-      public_network_access_enabled = var.public_network_access_enabled
+    # The 'default_action' can only be set to "Allow" if no 'ip_rules' or 'network_rules' is set.
+    default_action           = length(var.network_rule_set_ip_rules) == 0 && length(var.network_rule_set_virtual_network_rules) == 0 ? "Allow" : "Deny"
+    ip_rules                 = var.network_rule_set_ip_rules
+    trusted_services_allowed = var.network_rule_set_trusted_services_allowed
 
-      # The 'default_action' can only be set to "Allow" if no 'ip_rules' or 'network_rules' is set.
-      default_action           = length(var.network_rule_set_ip_rules) == 0 && length(var.network_rule_set_virtual_network_rules) == 0 ? "Allow" : "Deny"
-      ip_rules                 = var.network_rule_set_ip_rules
-      trusted_services_allowed = var.network_rule_set_trusted_services_allowed
+    dynamic "network_rules" {
+      for_each = var.network_rule_set_virtual_network_rules
 
-      dynamic "network_rules" {
-        for_each = var.network_rule_set_virtual_network_rules
-
-        content {
-          subnet_id                            = network_rules.value["subnet_id"]
-          ignore_missing_vnet_service_endpoint = network_rules.value["ignore_missing_vnet_service_endpoint"]
-        }
+      content {
+        subnet_id                            = network_rules.value["subnet_id"]
+        ignore_missing_vnet_service_endpoint = network_rules.value["ignore_missing_vnet_service_endpoint"]
       }
     }
   }

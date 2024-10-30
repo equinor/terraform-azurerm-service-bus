@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.4.1...v1.4.2) (2024-10-30)
+
+
+### Bug Fixes
+
+* allow IP rules configuration for all SKUs ([#64](https://github.com/equinor/terraform-azurerm-service-bus/issues/64)) ([f14c266](https://github.com/equinor/terraform-azurerm-service-bus/commit/f14c266d7c119be4da233f7f084e7c68fd7c1976))
+
 ## [1.4.1](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.4.0...v1.4.1) (2024-10-02)
 
 

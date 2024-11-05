@@ -189,8 +189,7 @@ run "network_rule_set_ip_rules" {
 
     sku = "Premium"
 
-    public_network_access_enabled = true
-    network_rule_set_ip_rules     = ["1.1.1.1/32", "2.2.2.2/32", "3.3.3.3/31"]
+    network_rule_set_ip_rules = ["1.1.1.1/32", "2.2.2.2/32", "3.3.3.3/31"]
   }
 
   assert {
@@ -230,7 +229,6 @@ run "network_rule_set_virtual_network_rules" {
 
     sku = "Premium"
 
-    public_network_access_enabled = true
     network_rule_set_virtual_network_rules = [
       {
         subnet_id = run.setup_tests.subnet_ids[0]

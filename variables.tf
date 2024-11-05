@@ -55,10 +55,10 @@ variable "premium_messaging_partitions" {
 }
 
 variable "public_network_access_enabled" {
-  description = "Is public network access enabled for the Service Bus namespace?"
+  description = "Is public network access enabled for the Service Bus namespace? If value is null, public network access will be implicitly enabled if one or more IP or virtual network rules are configured."
   type        = bool
-  default     = false
-  nullable    = false
+  default     = null
+  nullable    = true
 }
 
 variable "system_assigned_identity_enabled" {

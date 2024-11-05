@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.4.2...v1.5.0) (2024-11-05)
+
+
+### Features
+
+* implicitly enable public network access ([#66](https://github.com/equinor/terraform-azurerm-service-bus/issues/66)) ([3c8a58d](https://github.com/equinor/terraform-azurerm-service-bus/commit/3c8a58d0557056654ea603886fcd8264f42c2a4d))
+
 ## [1.4.2](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.4.1...v1.4.2) (2024-10-30)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.5.0...v1.6.0) (2024-11-11)
+
+
+### Features
+
+* output namespace name ([#68](https://github.com/equinor/terraform-azurerm-service-bus/issues/68)) ([3a47c33](https://github.com/equinor/terraform-azurerm-service-bus/commit/3a47c33fe0786d55c663daf2f5de385a896238b6))
+
 ## [1.5.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.4.2...v1.5.0) (2024-11-05)
 
 

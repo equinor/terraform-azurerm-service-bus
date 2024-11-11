@@ -1,3 +1,8 @@
+output "namespace_name" {
+  description = "The name of this Service Bus namespace."
+  value       = azurerm_servicebus_namespace.this.name
+}
+
 output "namespace_id" {
   description = "The ID of this Service Bus namespace."
   value       = azurerm_servicebus_namespace.this.id

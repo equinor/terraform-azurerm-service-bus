@@ -101,17 +101,6 @@ variable "network_rule_set_trusted_services_allowed" {
   nullable    = false
 }
 
-variable "namespace_authorization_rule" {
-  description = "Manages a ServiceBus Namespace authorization Rule within a ServiceBus."
-  type = map(object({
-    name   = string
-    listen = bool
-    send   = bool
-    manage = bool
-  }))
-  default = {}
-}
-
 variable "queue" {
   description = "Manages a ServiceBus Queue."
   type = map(object({
@@ -126,18 +115,6 @@ variable "topic" {
   type = map(object({
     name                 = string
     partitioning_enabled = optional(bool, false)
-  }))
-  default = {}
-}
-
-variable "queue_authorization_rule" {
-  description = "Manages an Authorization Rule for a ServiceBus Queue."
-  type = map(object({
-    name       = string
-    queue_name = string
-    listen     = bool
-    send       = bool
-    manage     = bool
   }))
   default = {}
 }

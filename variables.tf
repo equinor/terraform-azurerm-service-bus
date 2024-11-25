@@ -101,8 +101,8 @@ variable "network_rule_set_trusted_services_allowed" {
   nullable    = false
 }
 
-variable "queue" {
-  description = "Manages a ServiceBus Queue."
+variable "queues" {
+  description = "A map of queues to create for this Service Bus namespace."
   type = map(object({
     name                 = string
     partitioning_enabled = optional(bool, false)

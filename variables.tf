@@ -110,8 +110,8 @@ variable "queues" {
   default = {}
 }
 
-variable "topic" {
-  description = "Manages a ServiceBus Topic."
+variable "topics" {
+  description = "A map of topics to create for this Service Bus namespace. Only applicable if value of SKU is \"Standard\" or \"Premium\"."
   type = map(object({
     name                 = string
     partitioning_enabled = optional(bool, false)

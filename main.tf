@@ -54,7 +54,7 @@ resource "azurerm_servicebus_namespace" "this" {
 }
 
 resource "azurerm_servicebus_queue" "this" {
-  for_each = var.queue
+  for_each = var.queues
 
   name                 = each.value.name
   namespace_id         = azurerm_servicebus_namespace.this.id
@@ -62,7 +62,7 @@ resource "azurerm_servicebus_queue" "this" {
 }
 
 resource "azurerm_servicebus_topic" "this" {
-  for_each = var.topic
+  for_each = var.topics
 
   name                 = each.value.name
   namespace_id         = azurerm_servicebus_namespace.this.id

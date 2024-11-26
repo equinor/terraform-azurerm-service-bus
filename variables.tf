@@ -101,6 +101,24 @@ variable "network_rule_set_trusted_services_allowed" {
   nullable    = false
 }
 
+variable "queues" {
+  description = "A map of queues to create for this Service Bus namespace."
+  type = map(object({
+    name                 = string
+    partitioning_enabled = optional(bool, false)
+  }))
+  default = {}
+}
+
+variable "topics" {
+  description = "A map of topics to create for this Service Bus namespace. Only applicable if value of SKU is \"Standard\" or \"Premium\"."
+  type = map(object({
+    name                 = string
+    partitioning_enabled = optional(bool, false)
+  }))
+  default = {}
+}
+
 variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics workspace to send diagnostics to."
   type        = string

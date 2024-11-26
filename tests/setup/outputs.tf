@@ -21,3 +21,7 @@ output "subnet_ids" {
     "/subscriptions/${local.subscription_id}/resourceGroups/${local.resource_group_name}/providers/Microsoft.Network/virtualNetworks/vnet-${local.name_suffix}/subnets/snet-${local.name_suffix}-03"
   ]
 }
+
+output "user_assigned_identity_id" {
+  value = "/subscriptions/${local.subscription_id}/resourceGroups/${local.resource_group_name}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-${local.name_suffix}"
+}

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.6.0...v1.7.0) (2024-11-26)
+
+
+### Features
+
+* create queues and topics ([#61](https://github.com/equinor/terraform-azurerm-service-bus/issues/61)) ([39aa8f5](https://github.com/equinor/terraform-azurerm-service-bus/commit/39aa8f5b44b3a0767b3d0cd5cd0b912bfdc9c9d9))
+
 ## [1.6.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.5.0...v1.6.0) (2024-11-11)
 
 

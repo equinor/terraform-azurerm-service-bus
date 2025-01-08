@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.7.0...v1.8.0) (2025-01-08)
+
+
+### Features
+
+* prevent accidental destroy of queues and topics ([#73](https://github.com/equinor/terraform-azurerm-service-bus/issues/73)) ([08de7d7](https://github.com/equinor/terraform-azurerm-service-bus/commit/08de7d79176c4c7f9a89618bbbbf466795791101))
+
 ## [1.7.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.6.0...v1.7.0) (2024-11-26)
 
 

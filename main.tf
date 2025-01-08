@@ -59,6 +59,11 @@ resource "azurerm_servicebus_queue" "this" {
   name                 = each.value.name
   namespace_id         = azurerm_servicebus_namespace.this.id
   partitioning_enabled = each.value.partitioning_enabled
+
+  lifecycle {
+    # Prevent accidental destroy of Service Bus queues
+    prevent_destroy = true
+  }
 }
 
 resource "azurerm_servicebus_topic" "this" {
@@ -67,6 +72,11 @@ resource "azurerm_servicebus_topic" "this" {
   name                 = each.value.name
   namespace_id         = azurerm_servicebus_namespace.this.id
   partitioning_enabled = each.value.partitioning_enabled
+
+  lifecycle {
+    # Prevent accidental destroy of Service Bus topics
+    prevent_destroy = true
+  }
 }
 
 resource "azurerm_monitor_diagnostic_setting" "this" {

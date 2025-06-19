@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.8.0...v1.8.1) (2025-06-19)
+
+
+### Bug Fixes
+
+* argument `metric` for resource `azurerm_monitor_diagnostic_setting` has been deprecated ([#75](https://github.com/equinor/terraform-azurerm-service-bus/issues/75)) ([c2c3a2e](https://github.com/equinor/terraform-azurerm-service-bus/commit/c2c3a2e13651f4370f04cf619309b3f4bbe30c54))
+
 ## [1.8.0](https://github.com/equinor/terraform-azurerm-service-bus/compare/v1.7.0...v1.8.0) (2025-01-08)
 
 
